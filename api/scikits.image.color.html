@@ -7,8 +7,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
     <title>Module: color &mdash; scikits.image v0.3dev docs</title>
-    <link rel="stylesheet" href="../static/default.css" type="text/css" />
-    <link rel="stylesheet" href="../static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
@@ -18,9 +18,9 @@
         HAS_SOURCE:  true
       };
     </script>
-    <script type="text/javascript" src="../static/jquery.js"></script>
-    <script type="text/javascript" src="../static/underscore.js"></script>
-    <script type="text/javascript" src="../static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="top" title="scikits.image v0.3dev docs" href="../index.html" />
     <link rel="up" title="API Reference" href="api.html" />
     <link rel="next" title="Module: filter" href="scikits.image.filter.html" />
@@ -68,6 +68,12 @@
 </tr>
 <tr><td><a title="scikits.image.color.hsv2rgb" class="reference internal" href="#scikits.image.color.hsv2rgb"><tt class="xref docutils literal"><span class="pre">scikits.image.color.hsv2rgb</span></tt></a>(hsv)</td>
 <td>HSV to RGB color space conversion.</td>
+</tr>
+<tr><td><a title="scikits.image.color.rgb2gray" class="reference internal" href="#scikits.image.color.rgb2gray"><tt class="xref docutils literal"><span class="pre">scikits.image.color.rgb2gray</span></tt></a>(rgb)</td>
+<td>Compute luminance of an RGB image.</td>
+</tr>
+<tr><td><a title="scikits.image.color.rgb2grey" class="reference internal" href="#scikits.image.color.rgb2grey"><tt class="xref docutils literal"><span class="pre">scikits.image.color.rgb2grey</span></tt></a>(rgb)</td>
+<td>Compute luminance of an RGB image.</td>
 </tr>
 <tr><td><a title="scikits.image.color.rgb2hsv" class="reference internal" href="#scikits.image.color.rgb2hsv"><tt class="xref docutils literal"><span class="pre">scikits.image.color.rgb2hsv</span></tt></a>(rgb)</td>
 <td>RGB to HSV color space conversion.</td>
@@ -171,12 +177,12 @@ from XYZ to HSV is implemented as XYZ -&gt; RGB -&gt; HSV instead of directly.</
 <p class="rubric">Notes</p>
 <p>The conversion assumes an input data range of [0, 1] for all color components.</p>
 <p>Conversion between RGB and HSV color spaces results in some loss of
-precision, due to integer arithmetic and rounding <a class="reference internal" href="#r9">[R9]</a>.</p>
+precision, due to integer arithmetic and rounding <a class="reference internal" href="#r11">[R11]</a>.</p>
 <p class="rubric">References</p>
-<table class="docutils citation" frame="void" id="r9" rules="none">
+<table class="docutils citation" frame="void" id="r11" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label">[R9]</td><td><em>(<a class="fn-backref" href="#id1">1</a>, <a class="fn-backref" href="#id2">2</a>)</em> <a class="reference external" href="http://en.wikipedia.org/wiki/HSL_and_HSV">http://en.wikipedia.org/wiki/HSL_and_HSV</a></td></tr>
+<tr><td class="label">[R11]</td><td><em>(<a class="fn-backref" href="#id1">1</a>, <a class="fn-backref" href="#id2">2</a>)</em> <a class="reference external" href="http://en.wikipedia.org/wiki/HSL_and_HSV">http://en.wikipedia.org/wiki/HSL_and_HSV</a></td></tr>
 </tbody>
 </table>
 <p class="rubric">Examples</p>
@@ -188,6 +194,118 @@ precision, due to integer arithmetic and rounding <a class="reference internal" 
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">lena</span> <span class="o">=</span> <span class="n">imread</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="s">&#39;lena.png&#39;</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">lena_hsv</span> <span class="o">=</span> <span class="n">rgb2hsv</span><span class="p">(</span><span class="n">lena</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">lena_rgb</span> <span class="o">=</span> <span class="n">hsv2rgb</span><span class="p">(</span><span class="n">lena_hsv</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="rgb2gray">
+<h2>rgb2gray<a class="headerlink" href="#rgb2gray" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="scikits.image.color.rgb2gray">
+<tt class="descclassname">scikits.image.color.</tt><tt class="descname">rgb2gray</tt><big>(</big><em>rgb</em><big>)</big><a class="headerlink" href="#scikits.image.color.rgb2gray" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute luminance of an RGB image.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>rgb</strong> : array_like</p>
+<blockquote>
+<p>The image in RGB format, in a 3-D array of shape (.., .., 3).</p>
+</blockquote>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>out</strong> : ndarray</p>
+<blockquote>
+<p>The luminance image, a 2-D array.</p>
+</blockquote>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Raises:</th><td class="field-body"><p class="first"><strong>ValueError</strong> :</p>
+<blockquote class="last">
+<p>If <cite>rgb2grey</cite> is not a 3-D array of shape (.., .., 3).</p>
+</blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>The weights used in this conversion are calibrated for contemporary
+CRT phosphors:</p>
+<div class="highlight-python"><pre>Y = 0.2125 R + 0.7154 G + 0.0721 B</pre>
+</div>
+<p class="rubric">References</p>
+<table class="docutils citation" frame="void" id="r12" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id3">[R12]</a></td><td><a class="reference external" href="http://www.poynton.com/PDFs/ColorFAQ.pdf">http://www.poynton.com/PDFs/ColorFAQ.pdf</a></td></tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">os</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scikits.image</span> <span class="kn">import</span> <span class="n">data_dir</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scikits.image.io</span> <span class="kn">import</span> <span class="n">imread</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scikits.image.color</span> <span class="kn">import</span> <span class="n">rgb2grey</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">lena</span> <span class="o">=</span> <span class="n">imread</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="s">&#39;lena.png&#39;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lena_grey</span> <span class="o">=</span> <span class="n">rgb2grey</span><span class="p">(</span><span class="n">lena</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="rgb2grey">
+<h2>rgb2grey<a class="headerlink" href="#rgb2grey" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="scikits.image.color.rgb2grey">
+<tt class="descclassname">scikits.image.color.</tt><tt class="descname">rgb2grey</tt><big>(</big><em>rgb</em><big>)</big><a class="headerlink" href="#scikits.image.color.rgb2grey" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute luminance of an RGB image.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>rgb</strong> : array_like</p>
+<blockquote>
+<p>The image in RGB format, in a 3-D array of shape (.., .., 3).</p>
+</blockquote>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>out</strong> : ndarray</p>
+<blockquote>
+<p>The luminance image, a 2-D array.</p>
+</blockquote>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Raises:</th><td class="field-body"><p class="first"><strong>ValueError</strong> :</p>
+<blockquote class="last">
+<p>If <cite>rgb2grey</cite> is not a 3-D array of shape (.., .., 3).</p>
+</blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>The weights used in this conversion are calibrated for contemporary
+CRT phosphors:</p>
+<div class="highlight-python"><pre>Y = 0.2125 R + 0.7154 G + 0.0721 B</pre>
+</div>
+<p class="rubric">References</p>
+<table class="docutils citation" frame="void" id="r13" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id4">[R13]</a></td><td><a class="reference external" href="http://www.poynton.com/PDFs/ColorFAQ.pdf">http://www.poynton.com/PDFs/ColorFAQ.pdf</a></td></tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">os</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scikits.image</span> <span class="kn">import</span> <span class="n">data_dir</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scikits.image.io</span> <span class="kn">import</span> <span class="n">imread</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scikits.image.color</span> <span class="kn">import</span> <span class="n">rgb2grey</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">lena</span> <span class="o">=</span> <span class="n">imread</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="s">&#39;lena.png&#39;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lena_grey</span> <span class="o">=</span> <span class="n">rgb2grey</span><span class="p">(</span><span class="n">lena</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -226,12 +344,12 @@ precision, due to integer arithmetic and rounding <a class="reference internal" 
 <p class="rubric">Notes</p>
 <p>The conversion assumes an input data range of [0, 1] for all color components.</p>
 <p>Conversion between RGB and HSV color spaces results in some loss of
-precision, due to integer arithmetic and rounding <a class="reference internal" href="#r10">[R10]</a>.</p>
+precision, due to integer arithmetic and rounding <a class="reference internal" href="#r14">[R14]</a>.</p>
 <p class="rubric">References</p>
-<table class="docutils citation" frame="void" id="r10" rules="none">
+<table class="docutils citation" frame="void" id="r14" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label">[R10]</td><td><em>(<a class="fn-backref" href="#id3">1</a>, <a class="fn-backref" href="#id4">2</a>)</em> <a class="reference external" href="http://en.wikipedia.org/wiki/HSL_and_HSV">http://en.wikipedia.org/wiki/HSL_and_HSV</a></td></tr>
+<tr><td class="label">[R14]</td><td><em>(<a class="fn-backref" href="#id5">1</a>, <a class="fn-backref" href="#id6">2</a>)</em> <a class="reference external" href="http://en.wikipedia.org/wiki/HSL_and_HSV">http://en.wikipedia.org/wiki/HSL_and_HSV</a></td></tr>
 </tbody>
 </table>
 <p class="rubric">Examples</p>
@@ -278,16 +396,17 @@ precision, due to integer arithmetic and rounding <a class="reference internal" 
 </tbody>
 </table>
 <p class="rubric">References</p>
-<table class="docutils citation" frame="void" id="r11" rules="none">
+<table class="docutils citation" frame="void" id="r15" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id5">[R11]</a></td><td><a class="reference external" href="http://en.wikipedia.org/wiki/CIE_1931_color_space">http://en.wikipedia.org/wiki/CIE_1931_color_space</a></td></tr>
+<tr><td class="label"><a class="fn-backref" href="#id7">[R15]</a></td><td><a class="reference external" href="http://en.wikipedia.org/wiki/CIE_1931_color_space">http://en.wikipedia.org/wiki/CIE_1931_color_space</a></td></tr>
 </tbody>
 </table>
 <p class="rubric">Examples</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">os</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scikits.image</span> <span class="kn">import</span> <span class="n">data_dir</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scikits.image.io</span> <span class="kn">import</span> <span class="n">imread</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scikits.image.color</span> <span class="kn">import</span> <span class="n">rgb2rgbcie</span>
 </pre></div>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">lena</span> <span class="o">=</span> <span class="n">imread</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="s">&#39;lena.png&#39;</span><span class="p">))</span>
@@ -331,10 +450,10 @@ precision, due to integer arithmetic and rounding <a class="reference internal" 
 <p>The CIE XYZ color space is derived from the CIE RGB color space. Note
 however that this function converts from sRGB.</p>
 <p class="rubric">References</p>
-<table class="docutils citation" frame="void" id="r12" rules="none">
+<table class="docutils citation" frame="void" id="r16" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id6">[R12]</a></td><td><a class="reference external" href="http://en.wikipedia.org/wiki/CIE_1931_color_space">http://en.wikipedia.org/wiki/CIE_1931_color_space</a></td></tr>
+<tr><td class="label"><a class="fn-backref" href="#id8">[R16]</a></td><td><a class="reference external" href="http://en.wikipedia.org/wiki/CIE_1931_color_space">http://en.wikipedia.org/wiki/CIE_1931_color_space</a></td></tr>
 </tbody>
 </table>
 <p class="rubric">Examples</p>
@@ -381,16 +500,17 @@ however that this function converts from sRGB.</p>
 </tbody>
 </table>
 <p class="rubric">References</p>
-<table class="docutils citation" frame="void" id="r13" rules="none">
+<table class="docutils citation" frame="void" id="r17" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id7">[R13]</a></td><td><a class="reference external" href="http://en.wikipedia.org/wiki/CIE_1931_color_space">http://en.wikipedia.org/wiki/CIE_1931_color_space</a></td></tr>
+<tr><td class="label"><a class="fn-backref" href="#id9">[R17]</a></td><td><a class="reference external" href="http://en.wikipedia.org/wiki/CIE_1931_color_space">http://en.wikipedia.org/wiki/CIE_1931_color_space</a></td></tr>
 </tbody>
 </table>
 <p class="rubric">Examples</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">os</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scikits.image</span> <span class="kn">import</span> <span class="n">data_dir</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scikits.image.io</span> <span class="kn">import</span> <span class="n">imread</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scikits.image.color</span> <span class="kn">import</span> <span class="n">rgb2rgbcie</span><span class="p">,</span> <span class="n">rgbcie2rgb</span>
 </pre></div>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">lena</span> <span class="o">=</span> <span class="n">imread</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="s">&#39;lena.png&#39;</span><span class="p">))</span>
@@ -435,16 +555,17 @@ however that this function converts from sRGB.</p>
 <p>The CIE XYZ color space is derived from the CIE RGB color space. Note
 however that this function converts to sRGB.</p>
 <p class="rubric">References</p>
-<table class="docutils citation" frame="void" id="r14" rules="none">
+<table class="docutils citation" frame="void" id="r18" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id8">[R14]</a></td><td><a class="reference external" href="http://en.wikipedia.org/wiki/CIE_1931_color_space">http://en.wikipedia.org/wiki/CIE_1931_color_space</a></td></tr>
+<tr><td class="label"><a class="fn-backref" href="#id10">[R18]</a></td><td><a class="reference external" href="http://en.wikipedia.org/wiki/CIE_1931_color_space">http://en.wikipedia.org/wiki/CIE_1931_color_space</a></td></tr>
 </tbody>
 </table>
 <p class="rubric">Examples</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">os</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scikits.image</span> <span class="kn">import</span> <span class="n">data_dir</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scikits.image.io</span> <span class="kn">import</span> <span class="n">imread</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scikits.image.color</span> <span class="kn">import</span> <span class="n">rgb2xyz</span><span class="p">,</span> <span class="n">xyz2rgb</span>
 </pre></div>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">lena</span> <span class="o">=</span> <span class="n">imread</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="s">&#39;lena.png&#39;</span><span class="p">))</span>
@@ -468,6 +589,8 @@ however that this function converts to sRGB.</p>
 <li><a class="reference external" href="#">Module: <tt class="docutils literal"><span class="pre">color</span></tt></a><ul>
 <li><a class="reference external" href="#convert-colorspace">convert_colorspace</a></li>
 <li><a class="reference external" href="#hsv2rgb">hsv2rgb</a></li>
+<li><a class="reference external" href="#rgb2gray">rgb2gray</a></li>
+<li><a class="reference external" href="#rgb2grey">rgb2grey</a></li>
 <li><a class="reference external" href="#rgb2hsv">rgb2hsv</a></li>
 <li><a class="reference external" href="#rgb2rgbcie">rgb2rgbcie</a></li>
 <li><a class="reference external" href="#rgb2xyz">rgb2xyz</a></li>

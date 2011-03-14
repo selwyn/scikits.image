@@ -7,8 +7,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
     <title>API Reference &mdash; scikits.image v0.3dev docs</title>
-    <link rel="stylesheet" href="../static/default.css" type="text/css" />
-    <link rel="stylesheet" href="../static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
@@ -18,9 +18,9 @@
         HAS_SOURCE:  true
       };
     </script>
-    <script type="text/javascript" src="../static/jquery.js"></script>
-    <script type="text/javascript" src="../static/underscore.js"></script>
-    <script type="text/javascript" src="../static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="top" title="scikits.image v0.3dev docs" href="../index.html" />
     <link rel="next" title="Module: scikits.image" href="scikits.image.html" />
     <link rel="prev" title="Table of Contents" href="../contents.html" /> 
@@ -64,6 +64,8 @@
 <li class="toctree-l1"><a class="reference external" href="scikits.image.color.html">Module: <tt class="docutils literal"><span class="pre">color</span></tt></a><ul>
 <li class="toctree-l2"><a class="reference external" href="scikits.image.color.html#convert-colorspace">convert_colorspace</a></li>
 <li class="toctree-l2"><a class="reference external" href="scikits.image.color.html#hsv2rgb">hsv2rgb</a></li>
+<li class="toctree-l2"><a class="reference external" href="scikits.image.color.html#rgb2gray">rgb2gray</a></li>
+<li class="toctree-l2"><a class="reference external" href="scikits.image.color.html#rgb2grey">rgb2grey</a></li>
 <li class="toctree-l2"><a class="reference external" href="scikits.image.color.html#rgb2hsv">rgb2hsv</a></li>
 <li class="toctree-l2"><a class="reference external" href="scikits.image.color.html#rgb2rgbcie">rgb2rgbcie</a></li>
 <li class="toctree-l2"><a class="reference external" href="scikits.image.color.html#rgb2xyz">rgb2xyz</a></li>
@@ -74,6 +76,7 @@
 <li class="toctree-l1"><a class="reference external" href="scikits.image.filter.html">Module: <tt class="docutils literal"><span class="pre">filter</span></tt></a><ul>
 <li class="toctree-l2"><a class="reference external" href="scikits.image.filter.html#lpifilter2d"><tt class="docutils literal"><span class="pre">LPIFilter2D</span></tt></a></li>
 <li class="toctree-l2"><a class="reference external" href="scikits.image.filter.html#inverse">inverse</a></li>
+<li class="toctree-l2"><a class="reference external" href="scikits.image.filter.html#median-filter">median_filter</a></li>
 <li class="toctree-l2"><a class="reference external" href="scikits.image.filter.html#wiener">wiener</a></li>
 </ul>
 </li>
@@ -96,6 +99,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference external" href="scikits.image.io.html#imread">imread</a></li>
+<li class="toctree-l2"><a class="reference external" href="scikits.image.io.html#imread-collection">imread_collection</a></li>
 <li class="toctree-l2"><a class="reference external" href="scikits.image.io.html#imsave">imsave</a></li>
 <li class="toctree-l2"><a class="reference external" href="scikits.image.io.html#imshow">imshow</a></li>
 <li class="toctree-l2"><a class="reference external" href="scikits.image.io.html#load-sift">load_sift</a></li>
@@ -136,12 +140,16 @@
 <li class="toctree-l2"><a class="reference external" href="scikits.image.opencv.html#cvfilter2d">cvFilter2D</a></li>
 <li class="toctree-l2"><a class="reference external" href="scikits.image.opencv.html#cvfindchessboardcorners">cvFindChessboardCorners</a></li>
 <li class="toctree-l2"><a class="reference external" href="scikits.image.opencv.html#cvfindcornersubpix">cvFindCornerSubPix</a></li>
+<li class="toctree-l2"><a class="reference external" href="scikits.image.opencv.html#cvfindextrinsiccameraparams2">cvFindExtrinsicCameraParams2</a></li>
+<li class="toctree-l2"><a class="reference external" href="scikits.image.opencv.html#cvfindfundamentalmat">cvFindFundamentalMat</a></li>
+<li class="toctree-l2"><a class="reference external" href="scikits.image.opencv.html#cvfloodfill">cvFloodFill</a></li>
 <li class="toctree-l2"><a class="reference external" href="scikits.image.opencv.html#cvgetquadranglesubpix">cvGetQuadrangleSubPix</a></li>
 <li class="toctree-l2"><a class="reference external" href="scikits.image.opencv.html#cvgetrectsubpix">cvGetRectSubPix</a></li>
 <li class="toctree-l2"><a class="reference external" href="scikits.image.opencv.html#cvgoodfeaturestotrack">cvGoodFeaturesToTrack</a></li>
 <li class="toctree-l2"><a class="reference external" href="scikits.image.opencv.html#cvintegral">cvIntegral</a></li>
 <li class="toctree-l2"><a class="reference external" href="scikits.image.opencv.html#cvlaplace">cvLaplace</a></li>
 <li class="toctree-l2"><a class="reference external" href="scikits.image.opencv.html#cvlogpolar">cvLogPolar</a></li>
+<li class="toctree-l2"><a class="reference external" href="scikits.image.opencv.html#cvmatchtemplate">cvMatchTemplate</a></li>
 <li class="toctree-l2"><a class="reference external" href="scikits.image.opencv.html#cvmorphologyex">cvMorphologyEx</a></li>
 <li class="toctree-l2"><a class="reference external" href="scikits.image.opencv.html#cvprecornerdetect">cvPreCornerDetect</a></li>
 <li class="toctree-l2"><a class="reference external" href="scikits.image.opencv.html#cvpyrdown">cvPyrDown</a></li>
@@ -153,6 +161,7 @@
 <li class="toctree-l2"><a class="reference external" href="scikits.image.opencv.html#cvundistort2">cvUndistort2</a></li>
 <li class="toctree-l2"><a class="reference external" href="scikits.image.opencv.html#cvwarpaffine">cvWarpAffine</a></li>
 <li class="toctree-l2"><a class="reference external" href="scikits.image.opencv.html#cvwarpperspective">cvWarpPerspective</a></li>
+<li class="toctree-l2"><a class="reference external" href="scikits.image.opencv.html#cvwatershed">cvWatershed</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference external" href="scikits.image.transform.html">Module: <tt class="docutils literal"><span class="pre">transform</span></tt></a><ul>

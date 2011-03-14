@@ -7,8 +7,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
     <title>Installation from source &mdash; scikits.image v0.3dev docs</title>
-    <link rel="stylesheet" href="static/default.css" type="text/css" />
-    <link rel="stylesheet" href="static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '#',
@@ -18,9 +18,9 @@
         HAS_SOURCE:  true
       };
     </script>
-    <script type="text/javascript" src="static/jquery.js"></script>
-    <script type="text/javascript" src="static/underscore.js"></script>
-    <script type="text/javascript" src="static/doctools.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="scikits.image v0.3dev docs" href="index.html" /> 
   </head>
   <body>
@@ -70,7 +70,7 @@ in-place:</p>
 <ul class="simple">
 <li><a class="reference external" href="http://python.org">Python &gt;= 2.5</a></li>
 <li><a class="reference external" href="http://numpy.scipy.org/">Numpy &gt;= 1.4</a></li>
-<li><a class="reference external" href="http://www.cython.org/">Cython &gt;= 0.12</a></li>
+<li><a class="reference external" href="http://www.cython.org/">Cython &gt;= 0.13</a></li>
 </ul>
 </div>
 <div class="section" id="usage-requirements">
@@ -85,8 +85,11 @@ in-place:</p>
 <p>You can use this scikit with the basic requirements listed above, but some
 functionality is only available with the following installed:</p>
 <dl class="docutils">
-<dt><a class="reference external" href="http://opencv.willowgarage.com/wiki/">Open CV</a> (&gt;= 2.0).</dt>
-<dd>Required for functions in <tt class="docutils literal"><span class="pre">scikits.image.opencv</span></tt>.</dd>
+<dt><a class="reference external" href="http://opencv.willowgarage.com/wiki/">Open CV</a> (version 2.1).</dt>
+<dd><p class="first">Required for functions in <tt class="docutils literal"><span class="pre">scikits.image.opencv</span></tt>.</p>
+<p class="last">Note that, under Ubuntu, due to problems with Atlas + OpenCV,
+you may have to rebuild your own libcv.</p>
+</dd>
 <dt><a class="reference external" href="http://wiki.python.org/moin/PyQt">PyQt4</a></dt>
 <dd>The <cite>qt</cite> plugin that provides <cite>imshow</cite> and <cite>scivy</cite>.</dd>
 <dt><a class="reference external" href="http://www.pygtk.org/">PyGTK</a></dt>

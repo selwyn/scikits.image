@@ -7,8 +7,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
     <title>Module: io &mdash; scikits.image v0.3dev docs</title>
-    <link rel="stylesheet" href="../static/default.css" type="text/css" />
-    <link rel="stylesheet" href="../static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
@@ -18,9 +18,9 @@
         HAS_SOURCE:  true
       };
     </script>
-    <script type="text/javascript" src="../static/jquery.js"></script>
-    <script type="text/javascript" src="../static/underscore.js"></script>
-    <script type="text/javascript" src="../static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="top" title="scikits.image v0.3dev docs" href="../index.html" />
     <link rel="up" title="API Reference" href="api.html" /> 
   </head>
@@ -76,6 +76,9 @@
 <tr><td>matplotlib</td>
 <td>Display or save images using Matplotlib</td>
 </tr>
+<tr><td>fits</td>
+<td>FITS image reading via PyFITS</td>
+</tr>
 <tr><td>null</td>
 <td>Default plugin that does nothing</td>
 </tr>
@@ -85,7 +88,7 @@
 <h2><a title="scikits.image.io.ImageCollection" class="reference internal" href="#scikits.image.io.ImageCollection"><tt class="xref docutils literal"><span class="pre">ImageCollection</span></tt></a><a class="headerlink" href="#imagecollection" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="scikits.image.io.ImageCollection">
-<em class="property">class </em><tt class="descclassname">scikits.image.io.</tt><tt class="descname">ImageCollection</tt><big>(</big><em>file_pattern</em>, <em>conserve_memory=True</em>, <em>as_grey=False</em>, <em>dtype=None</em><big>)</big><a class="headerlink" href="#scikits.image.io.ImageCollection" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">scikits.image.io.</tt><tt class="descname">ImageCollection</tt><big>(</big><em>load_pattern</em>, <em>conserve_memory=True</em>, <em>load_func=None</em><big>)</big><a class="headerlink" href="#scikits.image.io.ImageCollection" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref docutils literal"><span class="pre">object</span></tt></p>
 <p>Load and manage a collection of image files.</p>
 <p>Note that files are always stored in alphabetical order.</p>
@@ -93,32 +96,50 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>file_pattern</strong> : str or list of str</p>
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>load_pattern</strong> : str or list</p>
 <blockquote>
-<p>Path(s) and pattern(s) of files to load. The path can be absolute
-or relative. If given as a list of strings, each string in the list
-is a separate pattern. Files are found by passing the pattern(s) to
-the <tt class="docutils literal"><span class="pre">glob.glob</span></tt> function.</p>
+<p>Pattern glob or filenames to load. The path can be absolute or
+relative.  Multiple patterns should be separated by a colon,
+e.g. &#8216;/tmp/work/<em>.png:/tmp/other/</em>.jpg&#8217;.  Also see
+implementation notes below.</p>
 </blockquote>
 <p><strong>conserve_memory</strong> : bool, optional</p>
-<blockquote>
+<blockquote class="last">
 <p>If True, never keep more than one in memory at a specific
 time.  Otherwise, images will be cached once they are loaded.</p>
-</blockquote>
-<p><strong>as_grey</strong> : bool, optional</p>
-<blockquote>
-<p>If True, convert the input images to grey-scale. This does not
-affect images that are already in a grey-scale format.</p>
-</blockquote>
-<p><strong>dtype</strong> : dtype, optional</p>
-<blockquote class="last">
-<p>NumPy data-type specifier. If given, the returned image has this type.
-If None (default), the data-type is determined automatically.</p>
 </blockquote>
 </td>
 </tr>
 </tbody>
 </table>
+<p class="rubric">Notes</p>
+<p>ImageCollection can be modified to load images from an arbitrary
+source by specifying a combination of <cite>load_pattern</cite> and
+<cite>load_func</cite>.  For an ImageCollection <tt class="docutils literal"><span class="pre">ic</span></tt>, <tt class="docutils literal"><span class="pre">ic[5]</span></tt> uses
+<tt class="docutils literal"><span class="pre">load_func(file_pattern[5])</span></tt> to load the image.</p>
+<p>Imagine, for example, an ImageCollection that loads every tenth
+frame from a video file:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">AVILoader</span><span class="p">:</span>
+    <span class="n">video_file</span> <span class="o">=</span> <span class="s">&#39;myvideo.avi&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">frame</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">video_read</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">video_file</span><span class="p">,</span> <span class="n">frame</span><span class="p">)</span>
+
+<span class="n">avi_load</span> <span class="o">=</span> <span class="n">AVILoader</span><span class="p">()</span>
+
+<span class="n">frames</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span> <span class="c"># 0, 10, 20, ...</span>
+<span class="n">ic</span> <span class="o">=</span> <span class="n">ImageCollection</span><span class="p">(</span><span class="n">frames</span><span class="p">,</span> <span class="n">load_func</span><span class="o">=</span><span class="n">avi_load</span><span class="p">)</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">ic</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="c"># calls avi_load(frames[5]) or equivalently avi_load(50)</span>
+</pre></div>
+</div>
+<p>Another use of <tt class="docutils literal"><span class="pre">load_func</span></tt> would be to convert all images to <tt class="docutils literal"><span class="pre">uint8</span></tt>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">imread_convert</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">imread</span><span class="p">(</span><span class="n">f</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
+
+<span class="n">ic</span> <span class="o">=</span> <span class="n">ImageCollection</span><span class="p">(</span><span class="s">&#39;/tmp/*.png&#39;</span><span class="p">,</span> <span class="n">load_func</span><span class="o">=</span><span class="n">imread_convert</span><span class="p">)</span>
+</pre></div>
+</div>
 <p class="rubric">Examples</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">scikits.image.io</span> <span class="kn">as</span> <span class="nn">io</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scikits.image</span> <span class="kn">import</span> <span class="n">data_dir</span>
@@ -131,10 +152,7 @@ If None (default), the data-type is determined automatically.</p>
 <span class="go">(128, 128, 3)</span>
 </pre></div>
 </div>
-<p>When <cite>as_grey</cite> is set to True, a color image is returned in grey-scale:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">coll</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">ImageCollection</span><span class="p">(</span><span class="n">data_dir</span> <span class="o">+</span> <span class="s">&#39;/lena*.png&#39;</span><span class="p">,</span> <span class="n">as_grey</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">coll</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span>
-<span class="go">(128, 128)</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">ic</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">ImageCollection</span><span class="p">(</span><span class="s">&#39;/tmp/work/*.png:/tmp/other/*.jpg&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p class="rubric">Attributes</p>
@@ -147,9 +165,6 @@ If None (default), the data-type is determined automatically.</p>
 <tr><td><a title="scikits.image.io.ImageCollection.files" class="reference internal" href="#scikits.image.io.ImageCollection.files"><tt class="xref docutils literal"><span class="pre">files</span></tt></a></td>
 <td></td>
 </tr>
-<tr><td><a title="scikits.image.io.ImageCollection.as_grey" class="reference internal" href="#scikits.image.io.ImageCollection.as_grey"><tt class="xref docutils literal"><span class="pre">as_grey</span></tt></a></td>
-<td>Whether images are converted to grey-scale.</td>
-</tr>
 </tbody>
 </table>
 <p class="rubric">Methods</p>
@@ -160,21 +175,14 @@ If None (default), the data-type is determined automatically.</p>
 </colgroup>
 <tbody valign="top">
 <tr><td><a title="scikits.image.io.ImageCollection.reload" class="reference internal" href="#scikits.image.io.ImageCollection.reload"><tt class="xref docutils literal"><span class="pre">reload</span></tt></a>([n])</td>
-<td>Reload one or more images from file.</td>
+<td>Clear the image cache.</td>
 </tr>
 </tbody>
 </table>
 <dl class="method">
 <dt id="scikits.image.io.ImageCollection.__init__">
-<tt class="descname">__init__</tt><big>(</big><em>file_pattern</em>, <em>conserve_memory=True</em>, <em>as_grey=False</em>, <em>dtype=None</em><big>)</big><a class="headerlink" href="#scikits.image.io.ImageCollection.__init__" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">__init__</tt><big>(</big><em>load_pattern</em>, <em>conserve_memory=True</em>, <em>load_func=None</em><big>)</big><a class="headerlink" href="#scikits.image.io.ImageCollection.__init__" title="Permalink to this definition">¶</a></dt>
 <dd>Load and manage a collection of images.</dd></dl>
-
-<dl class="attribute">
-<dt id="scikits.image.io.ImageCollection.as_grey">
-<tt class="descname">as_grey</tt><a class="headerlink" href="#scikits.image.io.ImageCollection.as_grey" title="Permalink to this definition">¶</a></dt>
-<dd><p>Whether images are converted to grey-scale.</p>
-<p>If this property is changed, all images in memory get reloaded.</p>
-</dd></dl>
 
 <dl class="attribute">
 <dt id="scikits.image.io.ImageCollection.conserve_memory">
@@ -189,27 +197,20 @@ If None (default), the data-type is determined automatically.</p>
 <dl class="method">
 <dt id="scikits.image.io.ImageCollection.reload">
 <tt class="descname">reload</tt><big>(</big><em>n=None</em><big>)</big><a class="headerlink" href="#scikits.image.io.ImageCollection.reload" title="Permalink to this definition">¶</a></dt>
-<dd><p>Reload one or more images from file.</p>
+<dd><p>Clear the image cache.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>n</strong> : None or int</p>
-<blockquote>
-<p>The number of the image to reload. If None (default), all images in
-memory are reloaded.  If <cite>n</cite> specifies an image not yet in memory,
-it is loaded.</p>
+<blockquote class="last">
+<p>Clear the cache for this image only. By default, the
+entire cache is erased.</p>
 </blockquote>
-</td>
-</tr>
-<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>None</strong> :</p>
 </td>
 </tr>
 </tbody>
 </table>
-<p class="rubric">Notes</p>
-<p><cite>reload</cite> is used to reload all images in memory when <cite>as_grey</cite> is
-changed.</p>
 </dd></dl>
 
 </dd></dl>
@@ -231,14 +232,9 @@ changed.</p>
 <p>The complete path to the image file.</p>
 </blockquote>
 <p><strong>conserve_memory</strong> : bool, optional</p>
-<blockquote>
+<blockquote class="last">
 <p>Whether to conserve memory by only caching a single frame. Default is
 True.</p>
-</blockquote>
-<p><strong>dtype</strong> : dtype, optional</p>
-<blockquote class="last">
-<p>NumPy data-type specifier. If given, the returned image has this type.
-If None (default), the data-type is determined automatically.</p>
 </blockquote>
 </td>
 </tr>
@@ -264,10 +260,6 @@ from file.</p>
 </pre></div>
 </div>
 <p>The two frames in this image can be shown with matplotlib:</p>
-<div class="figure">
-<img alt="../images/show_collection.png" src="../images/show_collection.png" />
-<p class="caption">(<a class="reference external" href="../plots/show_collection.py">Source code</a>)</p>
-</div>
 <p class="rubric">Attributes</p>
 <table border="1" class="docutils">
 <colgroup>
@@ -322,6 +314,9 @@ from file.</p>
 <tr><td><a title="scikits.image.io.imread" class="reference internal" href="#scikits.image.io.imread"><tt class="xref docutils literal"><span class="pre">scikits.image.io.imread</span></tt></a>(fname,&nbsp;**plugin_args)</td>
 <td>Load an image from file.</td>
 </tr>
+<tr><td><a title="scikits.image.io.imread_collection" class="reference internal" href="#scikits.image.io.imread_collection"><tt class="xref docutils literal"><span class="pre">scikits.image.io.imread_collection</span></tt></a>(...[,&nbsp;...])</td>
+<td>Load a collection of images.</td>
+</tr>
 <tr><td><a title="scikits.image.io.imsave" class="reference internal" href="#scikits.image.io.imsave"><tt class="xref docutils literal"><span class="pre">scikits.image.io.imsave</span></tt></a>(fname,&nbsp;arr,&nbsp;...[,&nbsp;...])</td>
 <td>Save an image to file.</td>
 </tr>
@@ -359,7 +354,7 @@ from file.</p>
 <h2>imread<a class="headerlink" href="#imread" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="scikits.image.io.imread">
-<tt class="descclassname">scikits.image.io.</tt><tt class="descname">imread</tt><big>(</big><em>fname</em>, <em>as_grey=False</em>, <em>dtype=None</em>, <em>plugin=None</em>, <em>flatten=None</em>, <em>**plugin_args</em><big>)</big><a class="headerlink" href="#scikits.image.io.imread" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">scikits.image.io.</tt><tt class="descname">imread</tt><big>(</big><em>fname</em>, <em>as_grey=False</em>, <em>plugin=None</em>, <em>flatten=None</em>, <em>**plugin_args</em><big>)</big><a class="headerlink" href="#scikits.image.io.imread" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load an image from file.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -371,20 +366,12 @@ from file.</p>
 </blockquote>
 <p><strong>as_grey</strong> : bool</p>
 <blockquote>
-<p>If True, convert color images to grey-scale. If <cite>dtype</cite> is not given,
-converted color images are returned as 32-bit float images.
+<p>If True, convert color images to grey-scale (32-bit floats).
 Images that are already in grey-scale format are not converted.</p>
-</blockquote>
-<p><strong>dtype</strong> : dtype, optional</p>
-<blockquote>
-<p>NumPy data-type specifier. If given, the returned image has this type.
-If None (default), the data-type is determined automatically.</p>
 </blockquote>
 <p><strong>plugin</strong> : str</p>
 <blockquote>
-<p>Name of plugin to use.  By default, the different plugins are
-tried (starting with the Python Imaging Library) until a suitable
-candidate is found.</p>
+<p>Name of plugin to use (Python Imaging Library by default).</p>
 </blockquote>
 </td>
 </tr>
@@ -393,6 +380,40 @@ candidate is found.</p>
 <p>The different colour bands/channels are stored in the
 third dimension, such that a grey-image is MxN, an
 RGB-image MxNx3 and an RGBA-image MxNx4.</p>
+</blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="imread-collection">
+<h2>imread_collection<a class="headerlink" href="#imread-collection" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="scikits.image.io.imread_collection">
+<tt class="descclassname">scikits.image.io.</tt><tt class="descname">imread_collection</tt><big>(</big><em>load_pattern</em>, <em>conserve_memory=True</em>, <em>plugin=None</em>, <em>**plugin_args</em><big>)</big><a class="headerlink" href="#scikits.image.io.imread_collection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load a collection of images.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>load_pattern</strong> : str or list</p>
+<blockquote>
+<p>List of objects to load. These are usually filenames, but may
+vary depending on the currently active plugin.  See the docstring
+for <tt class="docutils literal"><span class="pre">ImageCollection</span></tt> for the default behaviour of this parameter.</p>
+</blockquote>
+<p><strong>conserve_memory</strong> : bool, optional</p>
+<blockquote>
+<p>If True, never keep more than one in memory at a specific
+time.  Otherwise, images will be cached once they are loaded.</p>
+</blockquote>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>ic</strong> : ImageCollection</p>
+<blockquote class="last">
+<p>Collection of images.</p>
 </blockquote>
 </td>
 </tr>
@@ -708,7 +729,7 @@ will be loaded if it hasn&#8217;t been already.</p>
 <blockquote>
 <p>Name of plugin.</p>
 </blockquote>
-<p><strong>kind</strong> : {&#8216;save&#8217;, &#8216;read&#8217;, &#8216;show&#8217;}, optional</p>
+<p><strong>kind</strong> : {&#8216;imsave&#8217;, &#8216;imread&#8217;, &#8216;imshow&#8217;, &#8216;imread_collection&#8217;}, optional</p>
 <blockquote class="last">
 <p>Set the plugin for this function.  By default,
 the plugin is set for all functions.</p>
@@ -751,6 +772,7 @@ the plugin is set for all functions.</p>
 </ul>
 </li>
 <li><a class="reference external" href="#imread">imread</a></li>
+<li><a class="reference external" href="#imread-collection">imread_collection</a></li>
 <li><a class="reference external" href="#imsave">imsave</a></li>
 <li><a class="reference external" href="#imshow">imshow</a></li>
 <li><a class="reference external" href="#load-sift">load_sift</a></li>

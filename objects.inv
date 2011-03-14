@@ -30,9 +30,10 @@ scikits.image.graph.route_through_array function api/scikits.image.graph.html
 scikits.image.color.xyz2rgb function api/scikits.image.color.html
 scikits.image.color.convert_colorspace function api/scikits.image.color.html
 scikits.image.opencv.cvSobel function api/scikits.image.opencv.html
+scikits.image.opencv.cvWatershed function api/scikits.image.opencv.html
 scikits.image.opencv.cvAdaptiveThreshold function api/scikits.image.opencv.html
-scikits.image.io.ImageCollection.as_grey attribute api/scikits.image.io.html
 scikits.image.io.ImageCollection.conserve_memory attribute api/scikits.image.io.html
+scikits.image.color.rgb2grey function api/scikits.image.color.html
 scikits.image.graph.MCP.find_costs attribute api/scikits.image.graph.html
 scikits.image.opencv.cvSmooth function api/scikits.image.opencv.html
 scikits.image.color.hsv2rgb function api/scikits.image.color.html
@@ -44,6 +45,7 @@ scikits.image.opencv.cvCvtColor function api/scikits.image.opencv.html
 scikits.image.graph.MCP.__init__ method api/scikits.image.graph.html
 scikits.image.morphology.greyscale_close function api/scikits.image.morphology.html
 scikits.image.graph.MCP_Geometric.__init__ method api/scikits.image.graph.html
+scikits.image.opencv.cvFindFundamentalMat function api/scikits.image.opencv.html
 scikits.image.opencv.cvdoc class api/scikits.image.opencv.html
 scikits.image.io.pop function api/scikits.image.io.html
 scikits.image.morphology.greyscale_black_top_hat function api/scikits.image.morphology.html
@@ -59,6 +61,8 @@ scikits.image.opencv.cvUndistort2 function api/scikits.image.opencv.html
 scikits.image.morphology.square function api/scikits.image.morphology.html
 scikits.image.opencv.cvResize function api/scikits.image.opencv.html
 scikits.image.opencv.cvWarpPerspective function api/scikits.image.opencv.html
+scikits.image.opencv.cvFindExtrinsicCameraParams2 function api/scikits.image.opencv.html
+scikits.image.filter.median_filter function api/scikits.image.filter.html
 scikits.image.io.MultiImage.__init__ method api/scikits.image.io.html
 scikits.image.morphology.diamond function api/scikits.image.morphology.html
 scikits.image.io.imread function api/scikits.image.io.html
@@ -70,6 +74,7 @@ scikits.image.graph.shortest_path function api/scikits.image.graph.html
 scikits.image.get_log function api/scikits.image.html
 scikits.image.morphology.greyscale_white_top_hat function api/scikits.image.morphology.html
 scikits.image.morphology.greyscale_open function api/scikits.image.morphology.html
+scikits.image.opencv.cvFloodFill function api/scikits.image.opencv.html
 scikits.image.graph.MCP.traceback attribute api/scikits.image.graph.html
 scikits.image.morphology.greyscale_dilate function api/scikits.image.morphology.html
 scikits.image.opencv.cvErode function api/scikits.image.opencv.html
@@ -79,7 +84,9 @@ scikits.image.transform.hough function api/scikits.image.transform.html
 scikits.image.opencv.cvCanny function api/scikits.image.opencv.html
 scikits.image.opencv.cvMorphologyEx function api/scikits.image.opencv.html
 scikits.image.opencv.cvLogPolar function api/scikits.image.opencv.html
+scikits.image.opencv.cvMatchTemplate function api/scikits.image.opencv.html
 scikits.image.io.plugins function api/scikits.image.io.html
+scikits.image.color.rgb2gray function api/scikits.image.color.html
 scikits.image.opencv.cvLaplace function api/scikits.image.opencv.html
 scikits.image.opencv.cvPyrDown function api/scikits.image.opencv.html
 scikits.image.io.MultiImage class api/scikits.image.io.html
@@ -92,6 +99,7 @@ scikits.image.opencv.cvdoc.__init__ method api/scikits.image.opencv.html
 scikits.image.opencv.cvCornerEigenValsAndVecs function api/scikits.image.opencv.html
 scikits.image.graph.MCP_Geometric class api/scikits.image.graph.html
 scikits.image.opencv.cvFilter2D function api/scikits.image.opencv.html
+scikits.image.io.imread_collection function api/scikits.image.io.html
 scikits.image.io.MultiImage.conserve_memory attribute api/scikits.image.io.html
 scikits.image.io.use_plugin function api/scikits.image.io.html
 scikits.image.io.imshow function api/scikits.image.io.html
