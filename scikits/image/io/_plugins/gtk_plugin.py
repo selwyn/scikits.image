@@ -26,8 +26,8 @@ else:
                 self.counter = 0
 
                 #Set the Glade file
-    		cur_dir = os.path.dirname(__file__)
-    		self.gladefile = os.path.join(cur_dir, 'scigui1.glade'
+    		        cur_dir = os.path.dirname(__file__)
+    		        self.gladefile = os.path.join(cur_dir, 'scigui1.glade'
                 self.wTree = gtk.glade.XML(self.gladefile) 
 
                 #Get the Main Window, and connect the "destroy" event
